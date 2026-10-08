@@ -1,13 +1,12 @@
 {
-  "name":"FKBC Coaching Consult",
-  "short_name":"FKBC Consult",
-  "description":"FKBC coaching planner with Fight Arcade.",
+  "name":"FKBC Fight Arcade",
+  "short_name":"FKBC Arcade",
   "start_url":"./",
   "scope":"./",
-  "display":"standalone",
-  "orientation":"any",
-  "background_color":"#06101b",
-  "theme_color":"#06101b",
+  "display":"fullscreen",
+  "orientation":"landscape",
+  "background_color":"#000000",
+  "theme_color":"#070b14",
   "icons":[
     {"src":"icon-192.png","sizes":"192x192","type":"image/png","purpose":"any maskable"},
     {"src":"icon-512.png","sizes":"512x512","type":"image/png","purpose":"any maskable"}

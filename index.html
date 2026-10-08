@@ -2,122 +2,79 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no">
-  <meta name="theme-color" content="#06101b">
+  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+  <meta name="theme-color" content="#070b14">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <meta name="apple-mobile-web-app-title" content="FKBC Consult">
-  <title>FKBC Coaching Consult</title>
+  <meta name="apple-mobile-web-app-title" content="FKBC Fight Arcade">
+  <title>FKBC Fight Arcade</title>
   <link rel="manifest" href="manifest.webmanifest">
   <link rel="apple-touch-icon" href="icon-192.png">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <div id="appShell" class="app-shell">
-    <header class="topbar">
-      <button class="brand" data-view="home" aria-label="FKBC home"><span>FKBC</span><small>COACHING CONSULT</small></button>
-      <nav class="main-nav" aria-label="Primary">
-        <button class="nav-btn active" data-view="home"><span>⌂</span><b>Home</b></button>
-        <button class="nav-btn" data-view="sessions"><span>▦</span><b>Sessions</b></button>
-        <button class="nav-btn" data-view="plans"><span>☷</span><b>Plans</b></button>
-        <button class="nav-btn" data-view="timer"><span>◴</span><b>Timer</b></button>
-        <button class="nav-btn" data-view="coaches"><span>●</span><b>Coaches</b></button>
-        <button class="nav-btn arcade-tab" id="arcadeNav"><span>🎮</span><b>Arcade</b></button>
-      </nav>
-      <button id="installBtn" class="install-btn hidden">Install</button>
-    </header>
-
-    <main class="content">
-      <section id="view-home" class="view active">
-        <div class="home-hero">
-          <div class="hero-copy">
-            <p class="eyebrow">FKBC COACHING CONSULT</p>
-            <h1>Coach better.<br><em>Fight harder.</em></h1>
-            <p class="hero-desc">Plan sessions, run classes and jump into the FKBC Fight Arcade without leaving the coaching app.</p>
-            <div class="hero-buttons"><button class="primary" id="playHero">▶ Play Fight Arcade</button><button class="secondary" data-view="plans">Open lesson planner</button></div>
-            <div class="boss-line"><span>Boss ladder</span><b>Gracie</b><i>›</i><b>Jack</b><i>›</i><b>John</b><i>›</i><b>Justin</b><i>›</i><b>Joe</b><i>›</i><b>Paul</b></div>
-          </div>
-          <div class="hero-art" aria-hidden="true">
-            <div class="hero-burst"></div>
-            <img class="hero-fighter left" src="coach-joe.png" alt="">
-            <img class="hero-fighter right" src="coach-gracie.png" alt="">
-            <div class="fight-mark"><small>FKBC</small><strong>FIGHT<br>ARCADE</strong><span>COACHES CHALLENGE</span></div>
+  <main id="app">
+    <section id="menuView" class="view active" aria-label="FKBC Fight Arcade menu">
+      <div class="menuBackdrop"></div>
+      <div class="menuContent">
+        <div class="brand">FKBC <span>FIGHT ARCADE</span></div>
+        <p class="tagline">TRAIN • FIGHT • LEVEL UP</p>
+        <div class="menuPanel">
+          <h1>Choose your fighter</h1>
+          <p>Arcade ladder: Gracie → Jack → John → Justin → Joe → Paul</p>
+          <div id="fighterGrid" class="fighterGrid"></div>
+          <div class="menuActions">
+            <button id="startArcade" class="primary" type="button">START ARCADE</button>
+            <button id="startTraining" type="button">TRAINING</button>
+            <button id="showMoves" type="button">MOVE LIST</button>
+            <button id="showScores" type="button">HIGH SCORES</button>
           </div>
         </div>
-
-        <div class="home-grid">
-          <article class="panel score-panel"><div class="panel-title"><div><small>ARCADE</small><h2>High scores</h2></div><span class="trophy">🏆</span></div><ol id="homeScores" class="scores"></ol><button class="text-btn" id="scorePlay">Take on the ladder →</button></article>
-          <article class="panel next-panel"><div class="panel-title"><div><small>NEXT CLASS</small><h2>Kids Class</h2></div><span>18:00</span></div><p>Fundamentals • Line work • Partner pads</p><div class="mini-progress"><span style="width:58%"></span></div><button class="secondary compact" data-view="sessions">Open sessions</button></article>
-        </div>
-
-        <div class="section-head"><div><small>COACHING</small><h2>Your tools</h2></div><p>Fast access with no nested menus.</p></div>
-        <div class="tool-grid">
-          <button class="tool-card" data-view="sessions"><span class="tool-icon">▦</span><b>Sessions</b><small>Plan and run classes</small><i>›</i></button>
-          <button class="tool-card" data-view="plans"><span class="tool-icon">☷</span><b>Lesson Plans</b><small>Build a coaching flow</small><i>›</i></button>
-          <button class="tool-card" data-view="timer"><span class="tool-icon">◴</span><b>Round Timer</b><small>Rounds, rests and bells</small><i>›</i></button>
-          <button class="tool-card" data-view="coaches"><span class="tool-icon">●</span><b>Coaches</b><small>Meet the FKBC team</small><i>›</i></button>
-          <button class="tool-card arcade-card" id="toolArcade"><span class="tool-icon">🎮</span><b>Fight Arcade</b><small>Beat all six coaches</small><i>›</i></button>
-        </div>
-      </section>
-
-      <section id="view-sessions" class="view">
-        <div class="page-head"><div><p class="eyebrow">COACHING</p><h1>Sessions</h1><p>Build and reuse class structures without digging through menus.</p></div><button class="primary" id="addSession">+ Add session</button></div>
-        <div class="split-layout">
-          <article class="panel"><div class="panel-title"><h2>Upcoming</h2><span id="sessionCount"></span></div><div id="sessionList" class="session-list"></div></article>
-          <article class="panel form-panel"><h2>Quick session</h2><label>Name<input id="sessionName" value="Kids Class"></label><div class="field-row"><label>Minutes<select id="sessionMinutes"><option>30</option><option selected>45</option><option>60</option></select></label><label>Coach<select id="sessionCoach"></select></label></div><label>Focus<select id="sessionFocus"><option>Fundamentals</option><option>Line Work</option><option>Partner / Pad</option><option>Sparring</option><option>Fitness</option></select></label><button class="primary full" id="saveSession">Add to schedule</button></article>
-        </div>
-      </section>
-
-      <section id="view-plans" class="view">
-        <div class="page-head"><div><p class="eyebrow">COACHING</p><h1>Lesson Planner</h1><p>Build the class in the same order you coach it.</p></div><button class="primary" id="savePlan">Save plan</button></div>
-        <div class="plan-layout">
-          <aside class="panel add-tools"><h2>Add section</h2><button data-plan="Warm-up">+ Warm-up</button><button data-plan="Line Work">+ Line Work</button><button data-plan="Partner / Pads">+ Partner / Pads</button><button data-plan="Sparring">+ Sparring</button><button data-plan="Fitness">+ Fitness</button><button data-plan="Break">+ Break</button></aside>
-          <article class="panel"><div class="plan-meta"><label>Plan name<input id="planName" value="FKBC Fundamentals"></label><label>Class length<select id="planLength"><option>30</option><option selected>45</option><option>60</option></select></label></div><div id="planItems" class="plan-items"></div><div class="plan-total"><span>Total planned</span><b id="planTotal">0 min</b></div></article>
-        </div>
-      </section>
-
-      <section id="view-timer" class="view">
-        <div class="page-head"><div><p class="eyebrow">CLASS MODE</p><h1>Round Timer</h1><p>Large controls designed to be readable across the room.</p></div></div>
-        <div class="timer-grid"><article class="panel timer-stage"><span id="timerRound">ROUND 1 / 5</span><strong id="timerDisplay">03:00</strong><b id="timerState">READY</b><div><button class="secondary" id="timerReset">Reset</button><button class="primary timer-main" id="timerStart">Start</button><button class="secondary" id="timerSkip">Skip</button></div></article><aside class="panel timer-settings"><h2>Setup</h2><label>Rounds<input id="roundsInput" type="number" min="1" max="20" value="5"></label><label>Round seconds<input id="roundSeconds" type="number" min="15" max="900" value="180"></label><label>Rest seconds<input id="restSeconds" type="number" min="0" max="300" value="60"></label></aside></div>
-      </section>
-
-      <section id="view-coaches" class="view">
-        <div class="page-head"><div><p class="eyebrow">TEAM</p><h1>FKBC Coaches</h1><p>The same coach artwork is used in Fight Arcade.</p></div></div>
-        <div id="coachGrid" class="coach-grid"></div>
-      </section>
-    </main>
-  </div>
-
-  <section id="gameShell" class="game-shell" aria-hidden="true">
-    <div id="rotateGate" class="rotate-gate"><div class="rotate-phone">↻</div><h2>Rotate to landscape</h2><p>Fight Arcade uses the full screen in landscape so the controls never cover the action.</p><button id="exitRotate" class="secondary">Back to coaching</button></div>
-
-    <div id="fighterSelect" class="fighter-select hidden">
-      <div class="select-head"><button id="selectBack" class="game-icon-btn">‹</button><div><small>FKBC FIGHT ARCADE</small><h2>Select your fighter</h2></div><span></span></div>
-      <div id="fighterGrid" class="fighter-grid"></div>
-      <div class="select-footer"><div><small>BOSS ORDER</small><b>Gracie → Jack → John → Justin → Joe → Paul</b></div><button id="beginRun" class="primary" disabled>Start arcade run</button></div>
-    </div>
-
-    <div id="fightView" class="fight-view hidden">
-      <canvas id="fightCanvas" width="1280" height="720" aria-label="FKBC Fight Arcade game"></canvas>
-      <div class="game-top-controls"><button id="gameExit" class="game-icon-btn" aria-label="Exit arcade">×</button><button id="gamePause" class="game-icon-btn" aria-label="Pause game">Ⅱ</button></div>
-      <div id="dpad" class="dpad controls-layer" aria-label="Movement controls">
-        <button class="d-up" data-control="up">▲</button><button class="d-left" data-control="left">◀</button><button class="d-center" disabled></button><button class="d-right" data-control="right">▶</button><button class="d-down" data-control="down">▼</button>
       </div>
-      <div class="action-pad controls-layer" aria-label="Attack controls">
-        <button class="shoulder l" data-control="block"><span>L</span><small>BLOCK</small></button>
-        <button class="shoulder r" data-control="special"><span>R</span><small>SUPER</small></button>
-        <button class="action x" data-control="punch"><span>X</span><small>PUNCH</small></button>
-        <button class="action y" data-control="kick"><span>Y</span><small>KICK</small></button>
-        <button class="action a" data-control="special"><span>A</span><small>SPECIAL</small></button>
-        <button class="action b" data-control="block"><span>B</span><small>BLOCK</small></button>
+    </section>
+
+    <section id="gameView" class="view" aria-label="Fight game">
+      <div id="stageFrame">
+        <canvas id="gameCanvas" width="1280" height="720" aria-label="FKBC Fight Arcade playfield"></canvas>
+        <div id="touchControls" aria-label="Touch controls">
+          <div class="dpad" aria-label="Directional pad">
+            <button class="dir up" data-dir="up" aria-label="Up">▲</button>
+            <button class="dir left" data-dir="left" aria-label="Left">◀</button>
+            <div class="padCenter"></div>
+            <button class="dir right" data-dir="right" aria-label="Right">▶</button>
+            <button class="dir down" data-dir="down" aria-label="Down">▼</button>
+          </div>
+          <div class="attackPad" aria-label="Attack buttons">
+            <button class="atk lp" data-atk="LP"><b>LP</b><small>Light Punch</small></button>
+            <button class="atk mp" data-atk="MP"><b>MP</b><small>Medium Punch</small></button>
+            <button class="atk hp" data-atk="HP"><b>HP</b><small>Heavy Punch</small></button>
+            <button class="atk lk" data-atk="LK"><b>LK</b><small>Light Kick</small></button>
+            <button class="atk mk" data-atk="MK"><b>MK</b><small>Medium Kick</small></button>
+            <button class="atk hk" data-atk="HK"><b>HK</b><small>Heavy Kick</small></button>
+          </div>
+          <button id="pauseBtn" class="pauseBtn" type="button" aria-label="Pause">Ⅱ</button>
+        </div>
+        <div id="rotateHint"><div>↻</div><strong>Rotate to landscape</strong><span>Fight mode is designed for a full 16:9 screen.</span></div>
       </div>
-      <div id="fightMessage" class="fight-message hidden"><small id="messageKicker"></small><strong id="messageTitle"></strong><p id="messageText"></p><button id="messageAction" class="primary">Continue</button></div>
-    </div>
-  </section>
+    </section>
 
-  <dialog id="highScoreDialog" class="score-dialog"><form method="dialog" id="scoreForm"><small>NEW HIGH SCORE</small><h2 id="scoreDialogValue">0</h2><p>Enter your name for the FKBC leaderboard.</p><input id="playerName" maxlength="12" autocomplete="off" placeholder="YOUR NAME" required><div><button value="cancel" class="secondary">Skip</button><button value="save" class="primary" id="saveScore">Save score</button></div></form></dialog>
+    <dialog id="panelDialog">
+      <form method="dialog" class="dialogBox">
+        <button class="closeDialog" value="close" aria-label="Close">×</button>
+        <div id="dialogContent"></div>
+      </form>
+    </dialog>
 
-  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+    <dialog id="nameDialog">
+      <form id="scoreForm" class="dialogBox scoreBox">
+        <h2>NEW HIGH SCORE</h2>
+        <div id="finalScore" class="bigScore">0</div>
+        <label for="playerName">Enter your name</label>
+        <input id="playerName" maxlength="12" autocomplete="nickname" placeholder="PLAYER" required>
+        <button class="primary" type="submit">SAVE SCORE</button>
+      </form>
+    </dialog>
+  </main>
   <script src="app.js"></script>
 </body>
 </html>
